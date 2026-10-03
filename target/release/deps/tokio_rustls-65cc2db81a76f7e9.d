@@ -1,0 +1,11 @@
+/home/atif/termai-folder/pocai/target/release/deps/tokio_rustls-65cc2db81a76f7e9.d: /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/lib.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/client.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/mod.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/handshake.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/server.rs
+
+/home/atif/termai-folder/pocai/target/release/deps/libtokio_rustls-65cc2db81a76f7e9.rlib: /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/lib.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/client.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/mod.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/handshake.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/server.rs
+
+/home/atif/termai-folder/pocai/target/release/deps/libtokio_rustls-65cc2db81a76f7e9.rmeta: /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/lib.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/client.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/mod.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/handshake.rs /home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/server.rs
+
+/home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/lib.rs:
+/home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/client.rs:
+/home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/mod.rs:
+/home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/common/handshake.rs:
+/home/atif/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-rustls-0.26.5/src/server.rs:
