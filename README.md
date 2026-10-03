@@ -1,104 +1,203 @@
 # Pocai
 
-AI in your terminal — tool-calling, terminal-aware, Markdown-rendered
-in-process, written in Rust.
+Pocai is a lightweight terminal AI agent built in Rust. It runs locally, understands your shell context, can read files, search the repo, inspect git state, fetch URLs, and render rich markdown directly in the terminal.
 
-## Build
+It is designed to feel fast, minimal, and terminal-native rather than bloated or web-app-like.
 
-```
-cargo build --release
-```
+## Why Pocai?
 
-The binary is at `target/release/pocai`. Copy it somewhere on your
-`PATH`, e.g. `~/.local/bin/pocai`.
+Pocai is for people who want AI in the terminal without:
+- a heavy desktop app
+- Python runtime overhead
+- external markdown renderers
+- noisy UI and browser-like workflows
+
+Instead, it gives you:
+- a fast Rust binary
+- terminal-aware tool usage
+- built-in markdown rendering
+- syntax-highlighted code blocks
+- tables, math, diagrams, and rich output in plain terminal output
+- a minimal-but-capable agent workflow
+
+## Features
+
+- Terminal-native AI chat
+- Markdown rendering in-process. The layout is inspired by
+  [`leaf`](https://github.com/RivoLink/leaf), which Pocai used to shell
+  out to. Thank you to RivoLink for the original design.
+- Syntax highlighting for code blocks
+- Tables, lists, blockquotes, and formatted output
+- Math rendering with LaTeX-style input
+- Mermaid diagram rendering
+- File and directory awareness
+- Git-aware tools
+- URL fetching
+- Web search support
+- Shell access with approval-gated execution
+- Local configuration for API keys
 
 ## Requirements
 
-- Nothing beyond a Rust toolchain. Markdown rendering, syntax
-  highlighting, and diagram layout all run in-process.
-- `git` and `ripgrep` (or `grep`) — optional; used by the `get_git_*`
-  and `search_files` tools when available.
+- Rust toolchain
+- An OpenRouter API key or compatible model provider
 
-## Rendering
+## Installation
 
-Responses are rendered by the built-in `md` module: a pull-down-CMark
-event loop that emits styled lines, with no subprocess and nothing to
-install. It handles tables, line-numbered and syntax-highlighted code,
-LaTeX, Mermaid flowcharts and sequence diagrams, smart punctuation, and
-bare-URL linkification. Color is emitted only when stdout is a terminal
-and `NO_COLOR` is unset, so `pocai "..." > out.txt` stays clean text.
+Clone the repository:
 
-The layout is inspired by
-[`leaf`](https://github.com/RivoLink/leaf), which Pocai used to shell
-out to. Thank you to RivoLink for the original design.
-
-## Setup
-
-```
-pocai -k "sk-or-v1-..."
+```bash
+git clone https://github.com/atif-1402/pocai.git
+cd pocai
+cargo build --release
 ```
 
-Saves your OpenRouter API key to `~/.config/pocai/config` (mode
-`600`). You can set `OPENROUTER_API_KEY` in your environment instead
-if you'd rather not save it to disk.
+Then copy the binary to a location in your PATH:
+
+```bash
+cp target/release/pocai ~/.local/bin/
+```
+
+Or run it directly from the build directory:
+
+```bash
+./target/release/pocai
+```
+
+## Configuration
+
+Set your API key in the environment:
+
+```bash
+export OPENROUTER_API_KEY="your-key-here"
+```
+
+Or save it with Pocai:
+
+```bash
+pocai -k "your-key-here"
+```
+
+This stores the key in your local config directory.
 
 ## Usage
 
-```
+Basic prompt:
+
+```bash
 pocai "what time is it?"
-pocai "search the web for latest Linux kernel release"
-pocai "summarize https://example.com"
-pocai "what directory am I in?"
+```
+
+Ask it to inspect your project:
+
+```bash
 pocai "explain this project"
+```
+
+Inspect git state:
+
+```bash
 pocai "show me git status"
+```
 
+Search files:
+
+```bash
+pocai "find the main config file for this project"
+```
+
+Summarize a URL:
+
+```bash
+pocai "summarize https://example.com"
+```
+
+Open interactive chat mode:
+
+```bash
 pocai -c
+```
 
+Run a file-based session:
+
+```bash
 pocai -f script.sh
 pocai -f script.sh "find bugs"
+```
 
-pocai -k "sk-or-v1-..."
+Choose a model:
+
+```bash
 pocai -m openrouter/free "hello"
+```
 
+Show help:
+
+```bash
 pocai -h
-pocai -v
 ```
 
-## Project layout
+## Example
 
+```bash
+$ pocai "show me git status"
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  modified: src/main.rs
+  modified: README.md
 ```
+
+Pocai renders this using its built-in formatting engine so it stays readable in the terminal.
+
+## Project Layout
+
+```text
 src/
-├── main.rs        CLI entry point, argument parsing, dispatch
-├── consts.rs       shared constants
-├── config.rs       API key / model config load & save
-├── context.rs      cwd/OS/kernel/shell snapshot for the system prompt
-├── http.rs         shared HTTP client
-├── ui.rs           colours, prompts, banners, /command router
-├── render.rs        spinner + terminal width/color detection
-├── md/              the in-process Markdown renderer
-│   ├── mod.rs         event loop: Markdown -> styled lines
-│   ├── style.rs       Run/Line/Style, the ANSI-16 color model
-│   ├── ansi.rs        SGI output, width-safe, style-caching
-│   ├── width.rs       grapheme and display-width helpers
-│   ├── wrap.rs        width-aware wrapping, prefixes, hard splits
-│   ├── inline.rs      inline spans, emphasis, code, math
-│   ├── blocks.rs      headings, rules, quotes, paragraphs
-│   ├── lists.rs       bullets, numbering, nesting, task lists
-│   ├── code.rs        line-numbered code frames
-│   ├── highlight.rs   syntect -> ANSI-16 quantization
-│   ├── links.rs       link destinations, bare-URL linkification
-│   ├── table.rs       column sizing, alignment, box chrome
-│   ├── latex.rs       LaTeX -> Unicode
-│   ├── mermaid.rs     flowchart and sequence diagrams
-│   └── smart.rs       smart punctuation
-├── api.rs          OpenRouter client + the tool-calling loop
-├── modes.rs         normal / file / chat mode
+├── main.rs
+├── consts.rs
+├── config.rs
+├── context.rs
+├── http.rs
+├── ui.rs
+├── render.rs
+├── md/
+│   ├── mod.rs
+│   ├── style.rs
+│   ├── ansi.rs
+│   ├── width.rs
+│   ├── wrap.rs
+│   ├── inline.rs
+│   ├── blocks.rs
+│   ├── lists.rs
+│   ├── code.rs
+│   ├── highlight.rs
+│   ├── links.rs
+│   ├── table.rs
+│   ├── latex.rs
+│   ├── mermaid.rs
+│   └── smart.rs
+├── api.rs
+├── modes.rs
 └── tools/
-    ├── mod.rs        tool schema + dispatcher
-    ├── fs.rs         list_directory, read_file, find_files, search_files
-    ├── git.rs        get_git_status, get_git_diff
-    ├── web.rs        fetch_url, web_search
-    ├── weather.rs    get_weather
-    └── shell.rs      run_command (approval-gated)
+    ├── mod.rs
+    ├── fs.rs
+    ├── git.rs
+    ├── web.rs
+    ├── weather.rs
+    └── shell.rs
 ```
-# pocai
+
+## Notes
+
+This project is currently in active development. The terminal renderer and tool loop are the main focus, and more polish is still being added around UX, model behavior, and tooling.
+
+## License
+
+MIT
+
+## Acknowledgements
+
+This project uses in-process markdown rendering and terminal layout techniques inspired by terminal-first interfaces and rich CLI experiences.
